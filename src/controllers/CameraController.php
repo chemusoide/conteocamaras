@@ -50,6 +50,8 @@ class CameraController {
         $warningPercentage = $warning / 100;
         $warningRangeStart = $totalForo * $warningPercentage;
         $ultimaActualizacion = date('d/m/Y - H:i');
+        //$ultimaActualizacion = date('c'); // Cambio aquí para generar la fecha en formato ISO 8601
+
     
         $alertMessage = '';
         $alertClass = '';

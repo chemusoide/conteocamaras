@@ -9,4 +9,7 @@ $nuevoAforoManual = $aforoManual + $cambio;
 $result = $controller->updateAforoManual($nuevoAforoManual);
 $aforoData = $controller->calcularAforoTotal();
 
+//error_log("Aforo Manual actualizado: " . $nuevoAforoManual);
+//error_log("Resultado de actualizar Aforo Manual: " . ($result ? 'Éxito' : 'Fallo'));
+
 echo json_encode($aforoData);

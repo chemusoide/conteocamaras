@@ -1,10 +1,3 @@
-<?php
-require_once __DIR__ . '/../src/controllers/CameraController.php';
-
-$controller = new CameraController();
-$aforoData = $controller->calcularAforoTotal();  // Asegúrate de que este método devuelva el aforo total y el estado de los mensajes.
-
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -34,13 +27,20 @@ $aforoData = $controller->calcularAforoTotal();  // Asegúrate de que este méto
         .alert-max {
             color: #d40d12;
         }
+        .negative {
+            color: red;  /* Aquí definimos el color rojo para números negativos */
+        }
     </style>
 </head>
 <body>
     <div class="aforo-container">
         <h1>Aforo Total Actual:</h1>
-        <div id="aforoTotal" class="aforo-total"><?php echo $aforoData['total']; ?></div>
-        <div id="alert" class="<?php echo $aforoData['alertClass']; ?>"><?php echo $aforoData['alertMessage']; ?></div>
+        <div id="aforoTotal" class="aforo-total <?php echo ($aforoData['total'] < 0) ? 'negative' : ''; ?>">
+            <?php echo $aforoData['total']; ?>
+        </div>
+        <div id="alert" class="<?php echo $aforoData['alertClass']; ?>">
+            <?php echo $aforoData['alertMessage']; ?>
+        </div>
     </div>
 
     <script>
@@ -49,6 +49,13 @@ $aforoData = $controller->calcularAforoTotal();  // Asegúrate de que este méto
                 var result = JSON.parse(data);
                 $('#aforoTotal').text(result.total);
                 $('#alert').attr('class', result.alertClass).text(result.alertMessage);
+
+                // Aquí cambiamos la clase a "negative" si el total es menor que 0
+                if (result.total < 0) {
+                    $('#aforoTotal').addClass('negative');
+                } else {
+                    $('#aforoTotal').removeClass('negative');
+                }
             });
         }
 
