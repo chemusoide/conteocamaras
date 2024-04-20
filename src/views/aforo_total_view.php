@@ -1,14 +1,10 @@
-<!-- views/aforo_total_view.php -->
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aforo Total</title>
-
     <style>
-        /* Estilos CSS */
         body {
             font-family: Arial, sans-serif;
         }
@@ -30,85 +26,82 @@
         .alert-max {
             background-color: #ff0000;
         }
+        .negative {
+            color: red;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Aforo Total -->
-        <?php
-        echo "<h2>Aforo Total: <span id='aforoTotal'>$aforoTotal</span></h2>";
+        <h1>Aforo Total: <span id="aforoTotal"><?php echo $total; ?></span></h1>
 
-         // Mostrar alertas según el aforo total y los valores de configuración
-         if ($aforoTotal >= $totalForo) {
-            echo '<div class="alert alert-max">¡Aforo máximo alcanzado!</div>';
-        } elseif ($aforoTotal >= $warningRangeStart && $aforoTotal <= $warningRangeEnd) {
-            echo '<div class="alert alert-warning">¡Aviso de aforo cercano al máximo!</div>';
-        }
-        ?>
-    
-        <!-- Contador manual -->
-        <p>Contador Manual: <span id="contadorManual">0</span></p>
+        <?php if ($alertMessage): ?>
+            <div class="<?php echo $alertClass; ?>"><?php echo $alertMessage; ?></div>
+        <?php endif; ?>
 
-        <!-- Botones para sumar y restar personas al aforo máximo -->
-        <button onclick="sumarPersona()">Sumar Persona</button>
-        <button onclick="restarPersona()">Restar Persona</button>
+        <h2>Aforo de Cámaras: <span id="aforoCameras"><?php echo $aforoCameras; ?></span></h2>
+        <p>Última actualización automática: <span id="last-refresh"><?php echo $ultimaActualizacion; ?></span></p>
+
+        <h2>Aforo Manual: <span id="aforoManual"><?php echo $aforoManual; ?></span></h2>
+
+        <button id="sumarPersonaBtn">Sumar Persona</button>
+        <button id="restarPersonaBtn">Restar Persona</button>
 
         <!-- Desglose por cámaras -->
-        <?php
-        // Mostrar el desglose por cámaras
-        foreach ($cameraData as $cameraName => $data) {
-            echo "<h3>$cameraName</h3>";
-            if (isset($data['entrada']) && isset($data['salida'])) {
-                echo "Entradas: {$data['entrada']}<br>";
-                echo "Salidas: {$data['salida']}<br>";
-            } else {
-                echo "Error: {$data['error']}<br>";
-            }
-        }
-        ?>
+        <div id="infoCamaras">
+            <?php foreach ($cameraData as $cameraName => $data) : ?>
+                <h3><?php echo $cameraName; ?></h3>
+                <?php if (!isset($data['error'])) : ?>
+                    <p>Entradas: <?php echo $data['entrada']; ?></p>
+                    <p>Salidas: <?php echo $data['salida']; ?></p>
+                    <p>Total: <?php echo $data['entrada'] - $data['salida']; ?></p>
+                <?php else : ?>
+                    <p>Error: <?php echo $data['error']; ?></p>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </div>
     </div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-        // Contador manual
-        let contador = 0;
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('sumarPersonaBtn').addEventListener('click', function() {
+                actualizarAforoManual(1); // Llama a incrementar
+            });
 
-        function sumarPersona() {
-            contador++;
-            actualizarContador();
-            sumarAlAforoTotal();
-        }
+            document.getElementById('restarPersonaBtn').addEventListener('click', function() {
+                actualizarAforoManual(-1); // Llama a decrementar
+            });
 
-        function restarPersona() {
-            if (contador > 0) {
-                contador--;
-                actualizarContador();
-                restarDelAforoTotal();
+            function actualizarAforoManual(cambio) {
+                $.post(cambio > 0 ? 'incrementar_aforo.php' : 'decrementar_aforo.php', { cambio: cambio }, function(response) {
+                    var data = JSON.parse(response);
+                    $('#aforoTotal').text(data.total);
+                    $('#aforoManual').text(data.aforoManual);
+                    $('#aforoCameras').text(data.aforoCameras);
+                    actualizarAlertas(data.total);
+                    $('#last-refresh').text(data.ultimaActualizacion);
+                });
             }
-        }
 
-        function actualizarContador() {
-            document.getElementById("contadorManual").innerText = contador;
-        }
+            function actualizarAlertas(aforoTotal) {
+                // Oculta ambas alertas primero
+                $('.alert-max').hide();
+                $('.alert-warning').hide();
 
-        function sumarAlAforoTotal() {
-            // Obtener el valor actual del aforo total
-            let aforoTotal = parseInt(document.getElementById("aforoTotal").innerText);
-
-            // Incrementar el aforo total y actualizar el elemento HTML
-            aforoTotal++;
-            document.getElementById("aforoTotal").innerText = aforoTotal;
-        }
-
-        function restarDelAforoTotal() {
-            // Obtener el valor actual del aforo total
-            let aforoTotal = parseInt(document.getElementById("aforoTotal").innerText);
-
-            // Decrementar el aforo total si es mayor que cero y actualizar el elemento HTML
-            if (aforoTotal > 0) {
-                aforoTotal--;
-                document.getElementById("aforoTotal").innerText = aforoTotal;
+                // Muestra la alerta apropiada basada en el aforo total
+                if (aforoTotal >= <?php echo $totalForo; ?>) {
+                    $('.alert-max').show();
+                } else if (aforoTotal >= <?php echo $warningRangeStart; ?> && aforoTotal < <?php echo $totalForo; ?>) {
+                    $('.alert-warning').show();
+                }
             }
-        }
+
+            // Llamar a actualizarAlertas inmediatamente después de cargar la página
+            let aforoTotalInicial = parseInt(document.getElementById("aforoTotal").innerText) || 0;
+            actualizarAlertas(aforoTotalInicial);
+                    
+        });
     </script>
 </body>
 </html>

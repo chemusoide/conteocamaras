@@ -1,7 +1,7 @@
 <?php
-// tests/cameraApiServiceTest.php
+// tests/CameraApiServiceTest.php
 
-require_once __DIR__ . '/../src/models/services/cameraApiService.php';
+require_once __DIR__ . '/../src/models/services/CameraApiService.php';
 
 class CameraApiServiceTest {
     
@@ -16,21 +16,27 @@ class CameraApiServiceTest {
         $cameraData = $cameraApiService->getCameraData('camera01');
     
         // Verificar que los datos obtenidos son válidos (por ejemplo, un array)
-        assert(is_array($cameraData), 'Los datos de la cámara no son un array válido');
+        if (!is_array($cameraData)) {
+            echo "Error: Los datos de la cámara no son un array válido\n";
+            exit(1); // Terminar el script con un código de error
+        }
     
         // Agregar más aserciones según sea necesario para verificar la estructura de los datos devueltos
         // Por ejemplo, puedes verificar la presencia de las claves "entrada" y "salida"
-        assert(array_key_exists('entrada', $cameraData), 'Falta el campo "entrada" en los datos de la cámara');
-        assert(array_key_exists('salida', $cameraData), 'Falta el campo "salida" en los datos de la cámara');
-    }
+        if (!array_key_exists('entrada', $cameraData)) {
+            echo "Error: Falta el campo 'entrada' en los datos de la cámara\n";
+            exit(1); // Terminar el script con un código de error
+        }
+        if (!array_key_exists('salida', $cameraData)) {
+            echo "Error: Falta el campo 'salida' en los datos de la cámara\n";
+            exit(1); // Terminar el script con un código de error
+        }
 
+        // Si llegamos aquí, todas las aserciones pasaron correctamente
+        echo "\033[32m✔ Prueba exitosa: todas los test pasaron sin errores.\033[0m\n";
+    }
 }
 
 // Ejecutar pruebas
 $cameraApiServiceTest = new CameraApiServiceTest();
 $cameraApiServiceTest->testGetCameraData();
-
-// Imprimir un tick verde si las pruebas pasaron correctamente
-echo "\033[32m✔ Prueba exitosa: todas los test pasaron sin errores.\033[0m\n";
-
-?>

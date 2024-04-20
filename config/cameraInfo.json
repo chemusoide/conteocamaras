@@ -1,18 +1,23 @@
 {
-    "camera01": {
-        "url" : "http://mbs2024.dyndns.org:801/",
-        "name" : "camera01",
-        "user" : "admin",
-        "password" : "test1234",
-        "obs" : "Entrada 1"
-     },
-     "camera02": {
-        "url" : "http://mbs2024.dyndns.org:802/",
-        "name" : "camera02",
-        "user" : "admin",
-        "password" : "test1234",
-        "obs" : "Salida 1"
-     },
-     "totalForum" : 100,
-     "warning" : 80
+   "cameras": {
+       "camera01": {
+           "auth": "http://mbs2024.dyndns.org:801/api/auth/token",
+           "url": "http://mbs2024.dyndns.org:801/",
+           "name": "camera01",
+           "user": "admin",
+           "password": "test1234",
+           "obs": "Entrada 1"
+       },
+       "camera02": {
+           "auth": "http://mbs2024.dyndns.org:802/api/auth/token",
+           "url": "http://mbs2024.dyndns.org:802/",
+           "name": "camera02",
+           "user": "admin",
+           "password": "test1234",
+           "obs": "Salida 1"
+       }
+   },
+   "totalForum": 100,
+   "warning": 80,
+   "refresh": 10
 }

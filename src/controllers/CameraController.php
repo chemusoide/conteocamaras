@@ -2,74 +2,88 @@
 // src/controllers/CameraController.php
 
 require_once __DIR__ . '/../models/services/cameraApiService.php';
+require_once __DIR__ . '/../models/Database.php';  // Asegúrate de que tienes un archivo que maneje la conexión a la base de datos.
 
 class CameraController {
     private $cameraApiService;
+    private $db;
+    private $config;
+    private $cameraNames;  // Almacenar los nombres de las cámaras para uso interno.
 
     public function __construct() {
-        // Obtener la ruta al archivo de configuración de la cámara
         $configFilePath = dirname(__DIR__, 2) . '/config/cameraInfo.json';
-
+        $this->config = json_decode(file_get_contents($configFilePath), true);
         $this->cameraApiService = new CameraApiService($configFilePath);
+        $this->db = new Database();
+        $this->cameraNames = array_keys($this->config['cameras']);  // Cargar los nombres de las cámaras desde la configuración.
     }
 
-    public function getDataForMultipleCameras($cameraNames) {
+    public function getDataForMultipleCameras() {
         $cameraData = [];
-        foreach ($cameraNames as $cameraName) {
+        foreach ($this->cameraNames as $cameraName) {  // Utiliza la lista interna de nombres de cámaras.
             try {
                 $cameraData[$cameraName] = $this->cameraApiService->getCameraData($cameraName);
             } catch (Exception $e) {
-                // Manejar el caso en que la cámara no se encuentre
-                // Por ejemplo, puedes registrar un error o devolver un valor predeterminado
                 $cameraData[$cameraName] = ['error' => $e->getMessage()];
             }
         }
-
-        // Hacer algo con los datos obtenidos para múltiples cámaras
         return $cameraData;
     }
 
-    public function calcularAforoTotal($cameraNames) {
-        // Obtener los datos de las cámaras
-        $cameraData = $this->getDataForMultipleCameras($cameraNames);
-    
-        // Calcular el aforo total global
-        $aforoTotal = $this->calcularAforoTotalGlobal($cameraData);
-    
-        // Obtener totalForo y warning del archivo de configuración
-        $configFilePath = dirname(__DIR__, 2) . '/config/cameraInfo.json';
-        $configData = json_decode(file_get_contents($configFilePath), true);
-        $warning = $configData['warning'];
-        $totalForo = $configData['totalForum'];
-        $warningPercentage = $configData['warning'] / 100; // Convertir el warning a porcentaje
+    public function getAforoManual() {
+        return $this->db->getAforoManual();
+    }
 
+    public function updateAforoManual($aforoManual) {
+        return $this->db->updateAforoManual($aforoManual);
+    }
+
+    public function calcularAforoTotal() {
+        $cameraData = $this->getDataForMultipleCameras();
+        $aforoCameras = $this->calcularAforoTotalGlobal($cameraData);
+        $aforoManual = $this->getAforoManual();
     
-        // Calcular el valor de warning en base al totalForo
-        $warningValue = $totalForo * $warningPercentage;
+        $aforoTotal = $aforoCameras + $aforoManual;
     
-        // Determinar el rango de alerta de warning
-        $warningRangeStart = $totalForo - $warningValue;
-        $warningRangeEnd = $totalForo;
+        $totalForo = $this->config['totalForum'];
+        $warning = $this->config['warning'];
+        $warningPercentage = $warning / 100;
+        $warningRangeStart = $totalForo * $warningPercentage;
+        $ultimaActualizacion = date('d/m/Y - H:i');
     
-        // Cargar la vista y pasar el aforo total, totalForo, warning y rango de alerta como variables
-        require_once __DIR__ . '/../views/aforo_total_view.php';
+        $alertMessage = '';
+        $alertClass = '';
+        if ($aforoTotal >= $totalForo) {
+            $alertMessage = '¡Aforo máximo alcanzado!';
+            $alertClass = 'alert alert-max';
+        } elseif ($aforoTotal >= $warningRangeStart) {
+            $alertMessage = '¡Aviso de aforo cercano al máximo!';
+            $alertClass = 'alert alert-warning';
+        }
+    
+        return [
+            'total' => $aforoTotal,
+            'aforoCameras' => $aforoCameras,
+            'aforoManual' => $aforoManual,
+            'cameraData' => $cameraData,
+            'alertMessage' => $alertMessage,
+            'alertClass' => $alertClass,
+            'ultimaActualizacion' => $ultimaActualizacion,
+            'totalForo' => $totalForo,
+            'warningRangeStart' => $warningRangeStart 
+        ];
     }
 
     private function calcularAforoTotalGlobal($cameraData) {
         $totalEntradas = 0;
         $totalSalidas = 0;
-
-        // Calcular la suma total de entradas y salidas de todas las cámaras
         foreach ($cameraData as $data) {
             if (isset($data['entrada']) && isset($data['salida'])) {
                 $totalEntradas += $data['entrada'];
                 $totalSalidas += $data['salida'];
             }
         }
-
-        // Calcular el aforo total
         return $totalEntradas - $totalSalidas;
     }
 }
-
 ?>
