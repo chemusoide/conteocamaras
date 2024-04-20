@@ -4,32 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aforo Total</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .alert {
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-        }
-        .alert-warning {
-            background-color: #ffe800;
-        }
-        .alert-max {
-            background-color: #ff0000;
-        }
-        .negative {
-            color: red;
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
 <body>
     <div class="container">
@@ -60,46 +35,12 @@
         </div>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Inicializa variables JavaScript desde PHP -->
     <script>
-    $(document).ready(function() {
-        
-        function actualizarAlertas(aforoTotal) {
-            $('.alert-max, .alert-warning').hide();  // Oculta todas las alertas primero
-            
-            if (aforoTotal >= <?php echo $totalForo; ?>) {
-                $('.alert-max').show().text("¡Aforo máximo alcanzado!");
-            } else if (aforoTotal >= <?php echo $warningRangeStart; ?> && aforoTotal < <?php echo $totalForo; ?>) {
-                $('.alert-warning').show().text("¡Aviso de aforo cercano al máximo!");
-            }
-            
-            $('#aforoTotal').toggleClass('negative', aforoTotal < 0);
-        }
-
-        function actualizarAforoManual(cambio) {
-            $.post(cambio > 0 ? 'incrementar_aforo.php' : 'decrementar_aforo.php', { cambio: cambio }, function(response) {
-                var data = JSON.parse(response);
-                
-                $('#aforoTotal').text(data.total);
-                $('#aforoManual').text(data.aforoManual);
-                $('#aforoCameras').text(data.aforoCameras);
-                
-                actualizarAlertas(data.total);
-            }).fail(function(jqXHR, textStatus, errorThrown) {
-                // Puedes manejar el error aquí si es necesario
-            });
-        }
-
-        $('#sumarPersonaBtn').click(function() { actualizarAforoManual(1); });
-        $('#restarPersonaBtn').click(function() { actualizarAforoManual(-1); });
-
-        let aforoTotalInicial = parseInt($('#aforoTotal').text()) || 0;
-        actualizarAlertas(aforoTotalInicial);
-
-        setInterval(function() {
-            $('#last-refresh').text(new Date().toLocaleString('es-ES', { timeZone: 'Europe/Madrid' }));
-        }, 60000); // Actualizar cada minuto
-    });
+        var totalForo = <?php echo $totalForo; ?>;
+        var warningRangeStart = <?php echo $warningRangeStart; ?>;
     </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="../assets/js/scripts.js"></script>
 </body>
 </html>

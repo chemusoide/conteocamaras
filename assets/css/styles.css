@@ -1,0 +1,32 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+.container, .aforo-container {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.alert {
+    padding: 10px;
+    margin-top: 20px;
+    font-weight: bold;
+}
+.alert-warning {
+    background-color: #ffe800;
+    color: #e6a800;
+}
+.alert-max {
+    background-color: #ff0000;
+    color: #d40d12;
+}
+.negative {
+    color: red;
+}
