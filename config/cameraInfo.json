@@ -15,7 +15,63 @@
            "user": "admin",
            "password": "test1234",
            "obs": "Salida 1"
-       }
+       },
+       "camera03": {
+            "auth": "http://mbs2024.dyndns.org:802/api/auth/token",
+            "url": "http://mbs2024.dyndns.org:802/",
+            "name": "camera02",
+            "user": "admin",
+            "password": "test1234",
+            "obs": "Salida 1"
+        },
+        "camera04": {
+            "auth": "http://mbs2024.dyndns.org:802/api/auth/token",
+            "url": "http://mbs2024.dyndns.org:802/",
+            "name": "camera02",
+            "user": "admin",
+            "password": "test1234",
+            "obs": "Salida 1"
+        },
+        "camera05": {
+             "auth": "http://mbs2024.dyndns.org:802/api/auth/token",
+             "url": "http://mbs2024.dyndns.org:802/",
+             "name": "camera02",
+             "user": "admin",
+             "password": "test1234",
+             "obs": "Salida 1"
+         },
+         "camera06": {
+             "auth": "http://mbs2024.dyndns.org:802/api/auth/token",
+             "url": "http://mbs2024.dyndns.org:802/",
+             "name": "camera02",
+             "user": "admin",
+             "password": "test1234",
+             "obs": "Salida 1"
+         },
+         "camera07": {
+              "auth": "http://mbs2024.dyndns.org:802/api/auth/token",
+              "url": "http://mbs2024.dyndns.org:802/",
+              "name": "camera02",
+              "user": "admin",
+              "password": "test1234",
+              "obs": "Salida 1"
+          },
+          "camera08": {
+              "auth": "http://mbs2024.dyndns.org:802/api/auth/token",
+              "url": "http://mbs2024.dyndns.org:802/",
+              "name": "camera02",
+              "user": "admin",
+              "password": "test1234",
+              "obs": "Salida 1"
+          },
+          "camera09": {
+              "auth": "http://mbs2024.dyndns.org:802/api/auth/token",
+              "url": "http://mbs2024.dyndns.org:802/",
+              "name": "camera02",
+              "user": "admin",
+              "password": "test1234",
+              "obs": "Salida 1"
+          }
    },
    "totalForum": 100,
    "warning": 80,

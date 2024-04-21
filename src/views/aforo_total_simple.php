@@ -5,13 +5,14 @@
     <title>Aforo Total Simplificado</title>
     <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
-<body>
-    <div class="aforo-container">
-        <h1>Aforo Total Actual:</h1>
+<body class="aforo-simple">
+    <div class="aforo-simple-container">
+        <img src="../assets/img/Logo.png" alt="Logotipo de la Empresa" class="logo-empresa"/>
+        <div class="aforo-total-simple">AFORO TOTAL</div>
         <div id="aforoTotal" class="aforo-total <?php echo ($aforoData['total'] < 0) ? 'negative' : ''; ?>">
             <?php echo $aforoData['total']; ?>
         </div>
-        <div id="alert" class="<?php echo $aforoData['alertClass']; ?>">
+        <div id="alert" class="aforo-aviso-simple <?php echo $aforoData['alertClass']; ?>">
             <?php echo $aforoData['alertMessage']; ?>
         </div>
     </div>

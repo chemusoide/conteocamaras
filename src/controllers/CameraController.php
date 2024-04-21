@@ -56,10 +56,10 @@ class CameraController {
         $alertMessage = '';
         $alertClass = '';
         if ($aforoTotal >= $totalForo) {
-            $alertMessage = '¡Aforo máximo alcanzado!';
+            $alertMessage = '¡AFORO MÁXIMO ALCANZADO!';
             $alertClass = 'alert alert-max';
         } elseif ($aforoTotal >= $warningRangeStart) {
-            $alertMessage = '¡Aviso de aforo cercano al máximo!';
+            $alertMessage = '¡AFORO CERCANO AL MÁXIMO!';
             $alertClass = 'alert alert-warning';
         }
     

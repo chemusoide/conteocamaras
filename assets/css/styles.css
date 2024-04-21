@@ -1,32 +1,181 @@
+/* Estilo global */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 50;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
+  }
+
+/***** VISTA BACKEND *******/
+/* Zona del Aforo Total */
+.aforo-total-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-.container, .aforo-container {
-    text-align: center;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+
+.aforo-total-texto{
+    font-size: 3rem;
 }
-.alert {
-    padding: 10px;
-    margin-top: 20px;
-    font-weight: bold;
+  
+.aforo-cantidad{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 8rem;
 }
+  
 .alert-warning {
-    background-color: #ffe800;
-    color: #e6a800;
+    padding: 20px;
+    background-color: #ddcf8a;
+    border-radius: 20px;
+    font-size: 2rem;
+    margin-bottom: 20px;
 }
 .alert-max {
-    background-color: #ff0000;
-    color: #d40d12;
+    padding: 20px;
+    background-color: #d9b2b2;
+    border-radius: 20px;
+    font-size: 2rem;
+    margin-bottom: 20px;
 }
 .negative {
     color: red;
+}
+  
+/* Zona de Cámaras */
+.camaras-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px; /* Espacio entre cámaras */
+}
+  
+/* Zona del Aforo de Cámaras y Aforo Manual */
+.aforo-inferior-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+  
+/* Pie de página */
+.footer {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Zona de Cámaras */
+.camaras-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Crea tres columnas */
+    grid-gap: 20px; /* Espacio entre los elementos de la cuadrícula */
+    margin-bottom: 40px; /* Espacio debajo del contenedor de cámaras */
+}
+  
+.camaras-container h3,
+.camaras-container p {
+    margin: 5px 0; /* Espaciado entre los elementos dentro de cada cámara */
+}
+
+.camara-item {
+    padding: 15px;
+    border: 1px solid #ccc; /* Borde ligero para cada cámara */
+    border-radius: 10px; /* Esquinas redondeadas */
+    background-color: #f7f7f7; /* Color de fondo para cada cámara */
+    text-align: center; /* Centrar texto */
+}
+
+/* Zona de Información a la Derecha */
+.info-derecha-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 20px;
+}
+  
+.aforo-camaras, .aforo-manual {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f7f7f7;
+    margin-bottom: 20px; /* Espacio entre los bloques */
+}
+  
+.aforo-manual {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+  
+/* Botones */
+#sumarPersonaBtn, #restarPersonaBtn {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+  
+#sumarPersonaBtn {
+    background-color: #BBD0BE; /* Color verde */
+}
+  
+#restarPersonaBtn {
+    background-color: #D9B2B2; /* Color rojo */
+}
+
+/* Efecto hover para los botones */
+#sumarPersonaBtn:hover, #restarPersonaBtn:hover {
+    /* Cambia el color de fondo ligeramente más oscuro o claro al pasar el mouse */
+    filter: brightness(90%);
+}
+  
+/* Efecto active para los botones */
+#sumarPersonaBtn:active, #restarPersonaBtn:active {
+    /* Cambia el color de fondo para efecto pulsado */
+    filter: brightness(80%);
+    /* Pequeña translación para simular que el botón se presiona */
+    transform: translateY(2px);
+}
+  
+/* El cursor cuando pase sobre los botones */
+#sumarPersonaBtn, #restarPersonaBtn {
+    cursor: pointer;
+}
+  
+/* Contenedor Principal de la Mitad Inferior */
+.contenedor-inferior {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    align-items: flex-start; /* Alinear los elementos al principio */
+}
+
+/******* VISTA FRONTEND **********/
+.aforo-simple-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.logo-empresa {
+    width: 500px;
+    margin: 0 auto 30px; /* Centrar y dar espacio debajo */
+}
+
+.aforo-total-simple {
+    margin-top: 10px;
+    font-size: 5rem; 
+}
+
+/*cantidad aforo simple*/
+.aforo-simple #aforoTotal {
+    font-size: 23rem;
+    color: #333;
+    font-weight: bold;
+}
+
+.aforo-aviso-simple {
+    font-size: 2rem;
 }
