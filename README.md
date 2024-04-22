@@ -16,6 +16,64 @@ Este proyecto proporciona una solución integral para la monitorización de afor
 - Backend: PHP
 - Base de datos: MySQL
 
+## Estructura del proyecto
+
+
+Para la documentación de tu proyecto, un esquema de la estructura del proyecto podría verse así:
+
+markdown
+Copy code
+# ConteoCamaras
+
+ConteoCamaras es una aplicación para la gestión y monitorización del aforo en tiempo real a través de cámaras de seguridad.
+
+## Estructura del Proyecto
+
+CONTEOCAMARAS
+│
+├── assets
+│ ├── css
+│ │ └── styles.css
+│ ├── img
+│ │ ├── camera.png
+│ │ └── Logo.png
+│ └── js
+│ └── scripts.js
+│
+├── config
+│ ├── cameraInfo.json
+│ └── config.php
+│
+├── helpers
+│ └── debug.php
+│
+├── public
+│ ├── .htaccess
+│ ├── decrementar_aforo.php
+│ ├── fetch_aforo_total.php
+│ ├── incrementar_aforo.php
+│ └── index.php
+│
+├── src
+│ ├── controllers
+│ │ └── CameraController.php
+│ ├── models
+│ ├── services
+│ │ ├── cameraApiService.php
+│ │ └── Database.php
+│ └── views
+│ ├── aforo_total_simple.php
+│ └── aforo_total_view.php
+│
+├── tests
+│ ├── cameraApiServiceTest.php
+│ └── cameraControllerTest.php
+│
+├── vendor
+│
+├── .gitignore
+└── README.md
+
 ## Instalación
 
 ### Requisitos Previos
