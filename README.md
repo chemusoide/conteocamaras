@@ -166,4 +166,4 @@ Aquí tienes un ejemplo de cómo configurar la base de datos:
 	ALTER TABLE `aforo`
 	  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
-Desarrollado con ♥ por Informática Polo.
+Desarrollado con ♥ por IB-Securetat & Informática Polo.
