@@ -2,6 +2,9 @@
 
 Este proyecto proporciona una solución integral para la monitorización de aforo utilizando múltiples cámaras. Está diseñado para ser utilizado por IB-Seguretat y proporciona una interfaz en tiempo real para el seguimiento del aforo, permitiendo ajustes manuales y proporcionando alertas cuando el aforo alcanza umbrales definidos.
 
+## Modelos de cámara soportados
+XOVIS A00 355.10011
+
 ## Características Principales
 
 - Interfaz de usuario clara y responsiva.
