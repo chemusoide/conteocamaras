@@ -128,6 +128,7 @@ El fichero de configuración de cámaras y de la aplicación espera un JSON con 
 		"refresh": 10
 	}
 
+
 El programa se adapta al numero de cámaras se pueden poner 1 hasta n cámaras, todas las cámaras se definen en este fichero y el programa se encarga del resto.
 
 ## Configuración de la Base de Datos
