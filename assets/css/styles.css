@@ -179,3 +179,55 @@ body {
 .aforo-aviso-simple {
     font-size: 2rem;
 }
+
+/************ VISTA FRONTEND AVISOS ***********/
+/* Estilos específicos para la página de avisos con la clase 'aforo-simple-avisos' en el body */
+body.aforo-simple-avisos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: #f4f4f4;
+}
+
+body.aforo-simple-avisos .aforo-simple-container {
+    text-align: center;
+    width: 100%;
+}
+
+body.aforo-simple-avisos .logo-empresa {
+    max-width: 30%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+body.aforo-simple-avisos .aforo-aviso-simple {
+    font-size: 2.5rem;
+    padding: 20px;
+    margin-top: 20px;
+    color: #fff;
+    background-color: #d9534f; /* Ajusta el color según la alerta */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    width: 70%;
+    margin: 0 auto;
+}
+
+body.aforo-simple-avisos .alert-max {
+    background-color: #d9534f;
+}
+
+body.aforo-simple-avisos .alert-warning {
+    background-color: #f0ad4e;
+}
+
+body.aforo-simple-avisos .aforo-total {
+    font-size: 0.1px; /* Hace el texto extremadamente pequeño */
+    color: transparent; /* Hace el texto transparente */
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap; /* Evita que el texto se envuelva */
+}

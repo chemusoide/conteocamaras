@@ -18,6 +18,9 @@ if (file_exists($configFilePath)) {
         case 'simple':
             require_once __DIR__ . '/../src/views/aforo_total_simple.php';
             break;
+        case 'avisos':
+            require_once __DIR__ . '/../src/views/aforo_total_avisos.php';
+            break;
         case 'default':
             require_once __DIR__ . '/../src/views/aforo_total_view.php';
             break;
