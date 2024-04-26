@@ -6,7 +6,7 @@
     <title>Aforo Total</title>
     <link rel="stylesheet" href="../assets/css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-
+    
 </head>
 <body>
     <!-- Zona del Aforo Total -->
@@ -14,7 +14,9 @@
     <div class="aforo-total">
         <span class="aforo-total-texto">AFORO TOTAL</span>
         <br/>
-        <span id="aforoTotal" class="aforo-cantidad"><?php echo $total; ?></span>
+
+        <span id="aforoTotal" class="aforo-cantidad aforo-total"><?php echo $total; ?></span>
+
     </div>
     <div class="aforo-aviso">
         <div class="alert alert-max" style="<?php echo ($alertClass === 'alert alert-max' ? '' : 'display: none;'); ?>"><?php echo ($alertClass === 'alert alert-max' ? $alertMessage : ''); ?></div>
@@ -45,6 +47,8 @@
             <div class="aforo-camaras">
                 <h2>Aforo de Cámaras: <span id="aforoCameras"><?php echo $aforoCameras; ?></span></h2>
                 <p>Última actualización: <span id="last-refresh"><?php echo $ultimaActualizacion; ?></span></p>
+                <!-- Botón de refresco -->
+                <button id="refreshButton" class="refresh-btn" onclick="window.location.reload();">Forzar actualización</button>
             </div>
 
         <!-- Aforo Manual y Botones -->
@@ -65,6 +69,7 @@
     <script>
         var totalForo = <?php echo $totalForo; ?>;
         var warningRangeStart = <?php echo $warningRangeStart; ?>;
+        var refreshRate = <?php echo $controller->getRefreshRate(); ?>;
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="../assets/js/scripts.js"></script>

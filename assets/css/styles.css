@@ -153,6 +153,20 @@ body {
     align-items: flex-start; /* Alinear los elementos al principio */
 }
 
+.refresh-btn {
+    padding: 10px 15px;
+    background-color: #69b1b5;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.refresh-btn:hover {
+    background-color: #6e73af;
+}
+
 /******* VISTA FRONTEND **********/
 .aforo-simple-container {
     text-align: center;

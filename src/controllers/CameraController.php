@@ -18,6 +18,11 @@ class CameraController {
         $this->cameraNames = array_keys($this->config['cameras']);  // Cargar los nombres de las cámaras desde la configuración.
     }
 
+    public function getRefreshRate() {
+        // Asumiendo que 'refresh' está definido en segundos en tu cameraInfo.json
+        return $this->config['refresh'] * 1000;  // Convertir segundos a milisegundos para JavaScript
+    }
+
     public function getDataForMultipleCameras() {
         $cameraData = [];
         foreach ($this->cameraNames as $cameraName) {  // Utiliza la lista interna de nombres de cámaras.
